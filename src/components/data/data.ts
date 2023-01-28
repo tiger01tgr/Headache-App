@@ -2,6 +2,7 @@ import { MIN_IN_MILLISECOND } from '@/constants/time';
 import generateUUID from '@/functions/randomUUID';
 import { Session, Event, Pain, UserData } from '../../hooks/types'
 
+
 const date0 = new Date();
 date0.setTime(date0.getTime() + (5 * MIN_IN_MILLISECOND))
 
