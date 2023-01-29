@@ -17,6 +17,8 @@ interface ReturnType {
     signIn: (scopes?: string[] | undefined, customOAuthParameters?: CustomParameters | undefined) => Promise<UserCredential | undefined>;
 }
 
+
+//  Returns the current user, loading state, and sign in function
 const useAuth = () : ReturnType => {
 
     const [ signInWithGoogle ] = useSignInWithGoogle(auth);

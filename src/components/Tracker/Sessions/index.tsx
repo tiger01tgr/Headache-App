@@ -10,10 +10,8 @@ const PainChart = dynamic(
     { ssr: false }
 );
 
-
-
-
 import formatPainGraphData from '@/functions/formatPainGraphData';
+import ViewEvents from '@/components/Timer/Event/ViewEvents';
 
 interface Props {
     session: Session
@@ -47,6 +45,7 @@ const Sessions: React.FC<Props> = (session, i) => {
                     </h2>
                     <AccordionPanel pb={4}>
                         <PainChart data={data} mt={10}/>
+                        <ViewEvents events={session.session.events}/>
                     </AccordionPanel>
                 </AccordionItem>
             </Accordion>

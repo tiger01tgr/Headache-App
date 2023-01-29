@@ -1,26 +1,41 @@
 import { DocumentData } from 'firebase/firestore'
 import { UserData } from './types';
-import { fakeData } from '../components/data/data'
-
-const useUserData = () => {
-    return fakeData;
-}
-
-export default useUserData
 
 
-/*
-
+// Converts a document from Firebase into a UserData object
 const useUserData = (data: DocumentData) => {
+
+
+    for(let i = 0; i < data.sessions.length; i++){
+        data.sessions[i].start = data.sessions[i].start.toDate();
+        if (data.sessions[i].end != null) data.sessions[i].end = data.sessions[i].end.toDate();
+        for (let j = 0; j < data.sessions[i].events.length; j++){
+            data.sessions[i].events[j].time = data.sessions[i].events[j].time.toDate();
+        }
+        for (let j = 0; j < data.sessions[i].pain.length; j++){
+            data.sessions[i].pain[j].time = data.sessions[i].pain[j].time.toDate();
+        }
+    }
+    if (data.activeSessions != null){
+        data.activeSessions.start = data.activeSessions.start.toDate();
+        if (data.activeSessions.end != null) data.activeSessions.end = data.activeSessions.end.toDate();
+        for (let j = 0; j < data.activeSessions.events.length; j++){
+            data.sessions.events[j].time = data.sessions.events[j].time.toDate();
+        }
+        for (let j = 0; j < data.activeSessions.pain.length; j++){
+            data.sessions.pain[j].time = data.sessions.pain[j].time.toDate();
+        }
+    }   
+
     const userData: UserData = {
         id: data.id,
+        activeSession: data.activeSession,
         username: data.username,
         email: data.username,
-        sessions: [],
+        sessions: data.sessions,
         sex: data.sex
     }
-
     return userData;
 }
 
-export default useUserData*/
+export default useUserData
