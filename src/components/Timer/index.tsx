@@ -7,6 +7,8 @@ import { useContext, useState } from 'react'
 import { UserContextType, UserContext } from '../context/UserProvider';
 import Clock from './Clock';
 import PainSlider from './Pain';
+import Event from './Event'
+
 
 const PainChart = dynamic(
   import('../Recharts/PainChart'),
@@ -68,7 +70,8 @@ const Timer: React.FC<Props> = ({active}) => {
                   <PainSlider updateGraph={updateGraph} setUpdateGraph={setUpdateGraph} addPainActiveSess={addPainActiveSess}/>
               </VStack>
               <PainChart data={data} mt={50}/>
-              <Button  marginTop={5} colorScheme='gray' variant='solid' onClick={endSession}>End session</Button>
+              <Event />
+              <Button  marginTop={5} bg='red.200' variant='solid' onClick={endSession}>End session</Button>
             </CardBody>
           </Card>
         </VStack>

@@ -19,7 +19,6 @@ if (firebase.apps.length == 0){
 else {
     app = firebase.app();
 }
-console.log(clientCredentials);
 export const auth = getAuth(app);
 export const db = getFirestore(app);
 export default firebase;

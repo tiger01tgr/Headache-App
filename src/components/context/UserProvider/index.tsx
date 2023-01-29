@@ -1,5 +1,6 @@
 import generateUUID from '@/functions/randomUUID';
 import useCreateUser from '@/hooks/useCreateUser';
+import useSetUserData from '@/hooks/useSetUserData';
 import { useContext, createContext, useState, useEffect} from 'react';
 import { Pain, Session, UserData } from '../../../hooks/types';
 import useAuth from '../../../hooks/useAuth';
@@ -11,6 +12,7 @@ export interface UserContextType {
     editSession: (session: Session) => void;
     endActiveSession: () => void;
     addPainActiveSess: (pain: Pain) => void;
+    addEvent: (event: string) => void;
     //update: () => void;
 }
 
@@ -48,7 +50,7 @@ const UserProvider: React.FC<Props>= ({children}) => {
             pain: [],
             events: []
         }
-
+        updateDatabase();
         return userData.activeSession;
     }
 
@@ -61,6 +63,7 @@ const UserProvider: React.FC<Props>= ({children}) => {
                 return;
             }
         }
+        updateDatabase();
     }
 
     const endActiveSession = () => {
@@ -75,15 +78,31 @@ const UserProvider: React.FC<Props>= ({children}) => {
         data.activeSession = null;
         setUserData(data);
         setRefresh(!refresh);
-        console.log(userData.sessions);
+        updateDatabase();
     }
 
     const addPainActiveSess = (pain: Pain) => {
         userData?.activeSession?.pain.push(pain)
+        updateDatabase();
     }
 
+    const addEvent = (eventDescription: string) => {
+        if (!userData) return;
+        if (!userData.activeSession) return;
+
+        userData.activeSession.events.push({
+            description: eventDescription,
+            time: new Date()
+        })
+        updateDatabase();
+    }
+
+    const updateDatabase = () => {
+        if (!userData) return;
+        useSetUserData(userData);
+    }
     return (
-        <UserContext.Provider value={{userData, clearUserContext,addNewSession, editSession, endActiveSession, addPainActiveSess}}>
+        <UserContext.Provider value={{userData, clearUserContext,addNewSession, editSession, endActiveSession, addPainActiveSess, addEvent}}>
             {children}
         </UserContext.Provider>
     )

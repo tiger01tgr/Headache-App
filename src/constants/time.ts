@@ -1,4 +1,6 @@
-export const dayMap = new Map([[1, 'Mon'], [2 ,'Tue'], [3,'Wed'], [4,'Thu'], [5, 'Fri'], [6, 'Sat'], [7, 'Sun']]);
+
+
+export const dayMap = new Map([[1, 'Mon'], [2 ,'Tue'], [3,'Wed'], [4,'Thu'], [5, 'Fri'], [6, 'Sat'], [0, 'Sun']]);
 export const monthMap = new Map(
     [[1, 'Jan'], [2, 'Feb'], [3, 'Mar'], [4, 'Apr'], 
     [5, 'May'], [6, 'Jun'], [7, 'Jul'], [8, 'Aug'], [9, 'Sep'], 
@@ -43,6 +45,10 @@ export const convertDays = (dateIn: Date): string => {
     const month = monthMap.get(dateIn.getMonth() + 1);
     return day + ', ' + month + ' ' + dateIn.getDate();
 }
+
+export const convertDayTime = (dateIn: Date): string => {
+    return  convertTime(dateIn) + ' ' + convertDays(dateIn).slice(3);
+} 
 
 
 export const advanceTime = (date: Date, timeStep: number) => {

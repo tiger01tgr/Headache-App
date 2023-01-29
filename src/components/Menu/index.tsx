@@ -15,7 +15,6 @@ const MyMenu: React.FC = () => {
 
   const { userData, clearUserContext } = React.useContext(UserContext) as UserContextType;
 
-  console.log(userData);
   return (
     <Menu>
         <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
