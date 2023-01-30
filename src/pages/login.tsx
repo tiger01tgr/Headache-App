@@ -1,13 +1,12 @@
-import PageContainer from '@/components/utility/PageContainer'
-import React from 'react'
-import Login from '../components/Login'
+import PageContainer from '@/components/utility/PageContainer';
+import Login from '../components/Login';
 
 const login = () => {
   return (
     <PageContainer>
-      <Login />    
+      <Login />
     </PageContainer>
-  )
-}
+  );
+};
 
-export default login
+export default login;

@@ -1,23 +1,24 @@
-import { UserData } from '@/hooks/types';
-import { Flex, VStack } from '@chakra-ui/react'
-import React, { useContext, useEffect } from 'react'
+import { Flex, VStack } from '@chakra-ui/react';
+import { useContext } from 'react';
 import { UserContext, UserContextType } from '../context/UserProvider';
-import Timer from '../Timer'
 import Sessions from './Sessions';
 
+// Displays the tracker
 const Tracker = () => {
-
   const { userData } = useContext(UserContext) as UserContextType;
 
   return (
     <Flex>
-      <VStack paddingTop='5vh'>
-        {userData?.sessions.slice(0).reverse().map((session, i) => (
-          <Sessions session={session} key={i}/>
-        ))}
+      <VStack paddingTop="5vh">
+        {userData?.sessions
+          .slice(0)
+          .reverse()
+          .map((session, i) => (
+            <Sessions session={session} key={i} />
+          ))}
       </VStack>
     </Flex>
-  )
-}
+  );
+};
 
-export default Tracker
+export default Tracker;

@@ -1,32 +1,40 @@
 import formatPainGraphData from '@/functions/formatPainGraphData';
 import generateUUID from '@/functions/randomUUID';
-import { Session } from '@/hooks/types';
-import { Button, Card, CardBody, CardHeader, Flex, Heading, HStack, Icon, VStack, Text } from '@chakra-ui/react'
+import {
+  Button,
+  Card,
+  CardBody,
+  CardHeader,
+  Flex,
+  Heading,
+  HStack,
+  Icon,
+  Text,
+  VStack
+} from '@chakra-ui/react';
 import dynamic from 'next/dynamic';
-import { useContext, useState } from 'react'
-import { UserContextType, UserContext } from '../context/UserProvider';
+import { useContext, useState } from 'react';
+import { UserContext, UserContextType } from '../context/UserProvider';
 import Clock from './Clock';
+import Event from './Event';
 import PainSlider from './Pain';
-import Event from './Event'
 
-
-const PainChart = dynamic(
-  import('../Recharts/PainChart'),
-  { ssr: false }
-);
+const PainChart = dynamic(import('../Recharts/PainChart'), { ssr: false });
 
 interface Props {
-  active: boolean
+  active: boolean;
 }
 
+// Displays a timer that allows the user to start a new session, end the current session, and add pain and events to the current session
+const Timer: React.FC<Props> = ({ active }) => {
+  const { userData, addNewSession, endActiveSession, addPainActiveSess } =
+    useContext(UserContext) as UserContextType;
+  const [stateActive, setStateActive] = useState(
+    userData?.activeSession ? true : false
+  );
+  const [updateGraph, setUpdateGraph] = useState(false);
 
-const Timer: React.FC<Props> = ({active}) => {
-
-  const { userData, addNewSession, endActiveSession, addPainActiveSess } = useContext(UserContext) as UserContextType;
-  const [ stateActive, setStateActive ] = useState(userData?.activeSession ? true : false);
-  const [ updateGraph, setUpdateGraph ] = useState(false);
-
-    /// activeSession field in UserData
+  /// activeSession field in UserData
   const startSession = () => {
     addNewSession({
       id: generateUUID(),
@@ -34,49 +42,68 @@ const Timer: React.FC<Props> = ({active}) => {
       end: null,
       events: [],
       pain: []
-    })
+    });
     setStateActive(!stateActive);
-  }
+  };
 
   const endSession = () => {
     endActiveSession();
     setStateActive(!stateActive);
-  }
+  };
 
-  const data = formatPainGraphData(userData?.activeSession?.pain, 5); 
+  const data = formatPainGraphData(userData?.activeSession?.pain, 5);
 
   return (
     <Flex marginTop={5}>
-        <Button colorScheme='gray' variant='solid' display={stateActive ? 'none' : 'block'} onClick={startSession}>
-            Start new session
-        </Button>
-        <VStack display={stateActive ? 'block' : 'none'}>
-          <Card w='350px' h='100%'>
-            <CardHeader>
-              <HStack>
-                <Icon viewBox='0 0 200 200' color='red.500'>
-                  <path
-                    fill='currentColor'
-                    d='M 100, 100 m -75, 0 a 75,75 0 1,0 150,0 a 75,75 0 1,0 -150,0'
-                  />
-                </Icon>
-                <Heading size='md'>Ongoing</Heading>
-              </HStack>
-            </CardHeader>
-            <Clock active={stateActive} startTime={userData?.activeSession?.start} />
-            <CardBody>
-              <VStack>
-                <Text>Pain Logger</Text>
-                  <PainSlider updateGraph={updateGraph} setUpdateGraph={setUpdateGraph} addPainActiveSess={addPainActiveSess}/>
-              </VStack>
-              <PainChart data={data} mt={50}/>
-              <Event />
-              <Button  marginTop={5} bg='red.200' variant='solid' onClick={endSession}>End session</Button>
-            </CardBody>
-          </Card>
-        </VStack>
+      <Button
+        colorScheme="gray"
+        variant="solid"
+        display={stateActive ? 'none' : 'block'}
+        onClick={startSession}
+      >
+        Start new session
+      </Button>
+      <VStack display={stateActive ? 'block' : 'none'}>
+        <Card w="350px" h="100%">
+          <CardHeader>
+            <HStack>
+              <Icon viewBox="0 0 200 200" color="red.500">
+                <path
+                  fill="currentColor"
+                  d="M 100, 100 m -75, 0 a 75,75 0 1,0 150,0 a 75,75 0 1,0 -150,0"
+                />
+              </Icon>
+              <Heading size="md">Ongoing</Heading>
+            </HStack>
+          </CardHeader>
+          <Clock
+            active={stateActive}
+            startTime={userData?.activeSession?.start}
+          />
+          <CardBody>
+            <VStack>
+              <Text>Pain Logger</Text>
+              <PainSlider
+                updateGraph={updateGraph}
+                setUpdateGraph={setUpdateGraph}
+                addPainActiveSess={addPainActiveSess}
+              />
+            </VStack>
+            <PainChart data={data} mt={50} />
+            <Event />
+            <Button
+              marginTop={5}
+              bg="red.200"
+              variant="solid"
+              onClick={endSession}
+            >
+              End session
+            </Button>
+          </CardBody>
+        </Card>
+      </VStack>
     </Flex>
-  )
-}
+  );
+};
 
-export default Timer
+export default Timer;

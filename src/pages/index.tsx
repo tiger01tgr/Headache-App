@@ -1,33 +1,29 @@
-import { Box, Text } from '@chakra-ui/react'
-import Head from 'next/head'
-import { useAuthState, useSignInWithGoogle } from 'react-firebase-hooks/auth'
-import { auth } from '../firebase/clientApp'
-import Loading from '../components/Loading'
-import { useRouter } from 'next/navigation'
+import { Text } from '@chakra-ui/react';
+import Head from 'next/head';
+import { useRouter } from 'next/navigation';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import Loading from '../components/Loading';
+import { auth } from '../firebase/clientApp';
 
 export default function Home() {
-  const [ user, loading, error ] = useAuthState(auth);
+  const [user, loading, error] = useAuthState(auth);
   const router = useRouter();
-
-  if(error) {
+  // If login fails, display error
+  if (error) {
     console.log(error);
-    return (
-      <Text>Fuck error</Text>
-    )
+    return <Text>Fuck error</Text>;
   }
-
-  if(loading){
-    return (
-      <Loading />
-    )
+  // If loading, display loading screen
+  if (loading) {
+    return <Loading />;
   }
-
-  if(!user) {
+  // If user is not logged in, redirect to login page
+  if (!user) {
     router.push('/login');
     return null;
   }
-
-  if(user) {
+  // If user is logged in, redirect to homepage
+  if (user) {
     router.push('/homepage');
     return null;
   }
@@ -40,5 +36,5 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
     </div>
-  )
+  );
 }
