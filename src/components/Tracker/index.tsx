@@ -7,6 +7,8 @@ import Sessions from './Sessions';
 const Tracker = () => {
   const { userData } = useContext(UserContext) as UserContextType;
 
+  if (userData?.sessions == null) return <div></div>;
+
   return (
     <Flex>
       <VStack paddingTop="5vh">

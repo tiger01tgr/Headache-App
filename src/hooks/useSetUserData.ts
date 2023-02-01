@@ -5,7 +5,16 @@ import { UserData } from './types';
 
 // Converts a document from Firebase into a UserData object
 const useSetUserData = async (userData: UserData) => {
-  await setDoc(doc(db, USER_TABLE, userData.id), userData);
+  const uploadData = {
+    id: userData.id,
+    activeSession: userData.activeSession || null,
+    username: userData.username,
+    email: userData.email,
+    sessions: userData.sessions || null,
+    sex: userData.sex || null
+  };
+
+  await setDoc(doc(db, USER_TABLE, userData.id), uploadData);
 };
 
 export default useSetUserData;
