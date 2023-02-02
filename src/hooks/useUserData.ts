@@ -41,8 +41,6 @@ const useUserData = (data: DocumentData | undefined) => {
     sessions: data.sessions,
     sex: data.sex
   };
-  console.log('userData: ');
-  console.log(userData);
   return userData;
 };
 

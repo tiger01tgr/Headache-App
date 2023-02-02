@@ -69,9 +69,7 @@ const UserProvider: React.FC<Props> = ({ children }) => {
   };
 
   const endActiveSession = () => {
-
     const data = userData;
-    console.log(data);
     if (!data) return;
     if (!data.activeSession) return;
 
