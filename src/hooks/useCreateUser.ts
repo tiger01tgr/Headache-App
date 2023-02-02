@@ -29,12 +29,14 @@ const useCreateUser = async (user: User | null): Promise<UserData | null> => {
     email: email,
     id: uid,
     username: username,
-    sex: sex
+    sex: sex,
+    sessions: [],
+    activeSession: null
   };
 
   // Add the user to the database
   await setDoc(doc(db, USER_TABLE, uid), userData);
   // Return the user data
-  return useUserData(await getDoc(doc(db, USER_TABLE, uid)));
+  return useUserData(await (await getDoc(doc(db, USER_TABLE, uid))).data());
 };
 export default useCreateUser;
