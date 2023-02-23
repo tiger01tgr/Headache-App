@@ -1,4 +1,4 @@
-import { Box } from '@chakra-ui/react';
+import { VStack } from '@chakra-ui/react';
 import Header from '../Header';
 import Timer from '../Timer';
 import Tracker from '../Tracker';
@@ -6,11 +6,11 @@ import Tracker from '../Tracker';
 // Displays the home page
 const HomePage = () => {
   return (
-    <Box>
+    <VStack>
       <Header />
-      <Timer active={false} />
+      <Timer />
       <Tracker />
-    </Box>
+    </VStack>
   );
 };
 

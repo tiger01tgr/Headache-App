@@ -1,10 +1,10 @@
+import AuthForm from '@/components/AuthForm';
 import PageContainer from '@/components/utility/PageContainer';
-import Login from '../components/Login';
 
 const login = () => {
   return (
     <PageContainer>
-      <Login />
+      <AuthForm />
     </PageContainer>
   );
 };

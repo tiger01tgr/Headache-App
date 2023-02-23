@@ -5,7 +5,7 @@ import { User } from 'firebase/auth';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 
 import { USER_TABLE } from '../constants/database';
-import { UserData } from './types';
+import { UserData } from '../types/types';
 import useUserData from './useUserData';
 
 // Creates a new user in the database if the user is new

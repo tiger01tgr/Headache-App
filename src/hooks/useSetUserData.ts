@@ -1,7 +1,7 @@
 import { doc, setDoc } from 'firebase/firestore';
 import { USER_TABLE } from '../constants/database';
 import { db } from '../firebase/clientApp';
-import { UserData } from './types';
+import { UserData } from '../types/types';
 
 // Converts a document from Firebase into a UserData object
 const useSetUserData = async (userData: UserData) => {
@@ -10,7 +10,7 @@ const useSetUserData = async (userData: UserData) => {
     activeSession: userData.activeSession || null,
     username: userData.username,
     email: userData.email,
-    sessions: userData.sessions || null,
+    sessions: userData.sessions || [],
     sex: userData.sex || null
   };
 

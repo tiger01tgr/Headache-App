@@ -1,18 +1,22 @@
+import {
+  UserContext,
+  UserContextType
+} from '@/components/context/UserProvider';
 import { convertTimer } from '@/constants/time';
 import { Text, VStack } from '@chakra-ui/react';
-import { useEffect, useState } from 'react';
-
-interface Props {
-  startTime: Date | undefined;
-  active: boolean;
-}
+import { useContext, useEffect, useState } from 'react';
 
 // Displays the time in a timer format
-const Clock: React.FC<Props> = ({ startTime, active }) => {
+const Clock: React.FC = () => {
+  const { userData } = useContext(UserContext) as UserContextType;
+
   const computeTime = () => {
-    if (!startTime || !active) return 0;
+    if (!userData?.activeSession) {
+      setTimeout(() => setTime(computeTime()), 1000);
+      return 0;
+    }
     const now: Date = new Date();
-    const counter = now.getTime() - startTime.getTime();
+    const counter = now.getTime() - userData.activeSession.start.getTime();
     return counter;
   };
 
@@ -22,7 +26,7 @@ const Clock: React.FC<Props> = ({ startTime, active }) => {
     setTimeout(() => {
       setTime(computeTime());
     }, 1000);
-  }, [active, time]);
+  }, [time]);
 
   return (
     <VStack>

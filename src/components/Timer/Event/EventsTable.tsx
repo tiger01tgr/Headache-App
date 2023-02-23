@@ -1,5 +1,5 @@
 import { convertDayTime } from '@/constants/time';
-import { Event } from '@/hooks/types';
+import { Event } from '@/types/types';
 import {
   Table,
   TableCaption,

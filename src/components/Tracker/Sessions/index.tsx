@@ -11,7 +11,7 @@ import {
 import dynamic from 'next/dynamic';
 import React from 'react';
 import { convertDays, convertTime } from '../../../constants/time';
-import { Session } from '../../../hooks/types';
+import { Session } from '../../../types/types';
 
 const PainChart = dynamic(import('../../Recharts/PainChart'), { ssr: false });
 

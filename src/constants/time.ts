@@ -43,6 +43,7 @@ const convertHour = (hour: number): string[] => {
 };
 
 export const convertTime = (dateIn: Date): string => {
+  if (!dateIn) return 'error';
   const hour = convertHour(dateIn.getHours());
   const min = dateIn.getMinutes();
   let min_str = '';

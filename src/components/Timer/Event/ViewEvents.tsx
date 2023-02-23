@@ -1,4 +1,4 @@
-import { Event } from '@/hooks/types';
+import { Event } from '@/types/types';
 import {
   Button,
   Modal,

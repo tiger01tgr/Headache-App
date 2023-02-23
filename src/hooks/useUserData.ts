@@ -1,9 +1,11 @@
 import { DocumentData } from 'firebase/firestore';
-import { UserData } from './types';
+import { UserData } from '../types/types';
 
 // Converts a document from Firebase into a UserData object
 const useUserData = (data: DocumentData | undefined) => {
   if (data == undefined) return null;
+
+  // parse the data into a valid type/interface
 
   if (data.sessions != null) {
     // Convert the dates from firebase Timestamps to Date objects
@@ -21,15 +23,17 @@ const useUserData = (data: DocumentData | undefined) => {
     }
   }
   // Convert the dates from firebase Timestamps to Date objects
-  if (data.activeSessions != null) {
-    data.activeSessions.start = data.activeSessions.start.toDate();
-    if (data.activeSessions.end != null)
-      data.activeSessions.end = data.activeSessions.end.toDate();
-    for (let j = 0; j < data.activeSessions.events.length; j++) {
-      data.sessions.events[j].time = data.sessions.events[j].time.toDate();
+  if (data.activeSession != null) {
+    data.activeSession.start = data.activeSession.start.toDate();
+    if (data.activeSession.end != null)
+      data.activeSession.end = data.activeSession.end.toDate();
+    for (let j = 0; j < data.activeSession.events.length; j++) {
+      data.activeSession.events[j].time =
+        data.activeSession.events[j].time.toDate();
     }
-    for (let j = 0; j < data.activeSessions.pain.length; j++) {
-      data.sessions.pain[j].time = data.sessions.pain[j].time.toDate();
+    for (let j = 0; j < data.activeSession.pain.length; j++) {
+      data.activeSession.pain[j].time =
+        data.activeSession.pain[j].time.toDate();
     }
   }
 

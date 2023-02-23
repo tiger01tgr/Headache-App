@@ -13,7 +13,7 @@ import {
   VStack
 } from '@chakra-ui/react';
 import dynamic from 'next/dynamic';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { UserContext, UserContextType } from '../context/UserProvider';
 import Clock from './Clock';
 import Event from './Event';
@@ -21,18 +21,18 @@ import PainSlider from './Pain';
 
 const PainChart = dynamic(import('../Recharts/PainChart'), { ssr: false });
 
-interface Props {
-  active: boolean;
-}
-
 // Displays a timer that allows the user to start a new session, end the current session, and add pain and events to the current session
-const Timer: React.FC<Props> = ({ active }) => {
+const Timer: React.FC = () => {
   const { userData, addNewSession, endActiveSession, addPainActiveSess } =
     useContext(UserContext) as UserContextType;
-  const [stateActive, setStateActive] = useState(
-    userData?.activeSession ? true : false
-  );
   const [updateGraph, setUpdateGraph] = useState(false);
+  const [stateActive, setStateActive] = useState(
+    userData?.activeSession !== null
+  );
+
+  useEffect(() => {
+    setStateActive(userData?.activeSession !== null);
+  }, [userData]);
 
   /// activeSession field in UserData
   const startSession = () => {
@@ -76,10 +76,7 @@ const Timer: React.FC<Props> = ({ active }) => {
               <Heading size="md">Ongoing</Heading>
             </HStack>
           </CardHeader>
-          <Clock
-            active={stateActive}
-            startTime={userData?.activeSession?.start}
-          />
+          <Clock />
           <CardBody>
             <VStack>
               <Text>Pain Logger</Text>

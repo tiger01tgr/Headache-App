@@ -1,5 +1,5 @@
 import { advanceTime, convertTime, MIN_IN_MILLISECOND } from '@/constants/time';
-import { Pain } from '@/hooks/types';
+import { Pain } from '@/types/types';
 
 // This function is used to format the data for the pain graph
 const formatPainGraphData = (pain: Pain[] | undefined, timeStep: number) => {
