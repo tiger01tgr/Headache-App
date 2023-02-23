@@ -2,8 +2,8 @@ import generateUUID from '@/functions/randomUUID';
 import useCreateUser from '@/hooks/useCreateUser';
 import useSetUserData from '@/hooks/useSetUserData';
 import { createContext, useEffect, useState } from 'react';
-import { Pain, Session, UserData } from '../../../hooks/types';
 import useAuth from '../../../hooks/useAuth';
+import { Pain, Session, UserData } from '../../../types/types';
 
 export interface UserContextType {
   userData: UserData | null;

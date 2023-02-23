@@ -10,7 +10,14 @@ import MyMenu from '../Menu';
 // Displays the header of the page
 const Header: React.FC = () => {
   return (
-    <Flex direction="row" justifyContent="space-between">
+    <Flex
+      direction="row"
+      justifyContent="space-between"
+      w="100vw"
+      padding="2"
+      h="6em"
+      alignItems="center"
+    >
       <Breadcrumb>
         <BreadcrumbItem isCurrentPage>
           <BreadcrumbLink href="#">Home</BreadcrumbLink>

@@ -1,4 +1,4 @@
-import { Pain } from '@/hooks/types';
+import { Pain } from '@/types/types';
 import {
   Box,
   Slider,
